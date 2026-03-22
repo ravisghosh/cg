@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CommonGround — Housing Cooperative, Bengaluru</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g50:#EAF3DE;--g100:#C0DD97;--g200:#97C459;--g600:#3B6D11;--g700:#2E5A0D;--g800:#27500A;--g900:#173404;
+  --t50:#E1F5EE;--t100:#9FE1CB;--t200:#5DCAA5;--t600:#0F6E56;
+  --a50:#FAEEDA;--a100:#FAC775;--a800:#633806;
+  --c50:#FAECE7;--c100:#F5C4B3;--c600:#993C1D;--c800:#712B13;
+  --s50:#F1EFE8;--s100:#D3D1C7;--s200:#B4B2A9;--s600:#5F5E5A;--s800:#444441;--s900:#2C2C2A;
+  --nh:64px;
+}
+html{scroll-behavior:smooth}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--s900);background:#fff;line-height:1.75;font-size:16px;padding-top:var(--nh)}
+.sf{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:var(--nh);background:rgba(255,255,255,0.97);border-bottom:1px solid var(--s100);display:flex;align-items:center;justify-content:space-between;padding:0 1.75rem}
+.logo{font-family:-apple-system,sans-serif;font-weight:700;font-size:19px;color:var(--g800);text-decoration:none;letter-spacing:-.4px}
+.logo span{color:var(--g600)}
+.nd{display:flex;align-items:center;gap:1.25rem}
+.nd a{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s600);text-decoration:none;white-space:nowrap}
+.nd a:hover{color:var(--g800)}
+.ncta{background:var(--g800);color:#fff!important;padding:9px 20px;border-radius:24px}
+.ncta:hover{background:var(--g600)!important}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hbg span{display:block;width:22px;height:2px;background:var(--s800);border-radius:2px;transition:all .3s}
+.hbg.o span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hbg.o span:nth-child(2){opacity:0}
+.hbg.o span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mm{display:none;position:fixed;top:var(--nh);left:0;right:0;background:#fff;border-bottom:1px solid var(--s100);z-index:998;padding:1rem 1.75rem;flex-direction:column}
+.mm a{font-family:-apple-system,sans-serif;font-size:15px;color:var(--s800);text-decoration:none;padding:.8rem 0;border-bottom:1px solid var(--s50);display:block}
+.mm a.mm-cta{border-bottom:none;color:var(--g800);font-weight:600;margin-top:.25rem}
+.mm.o{display:flex}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+
+/* SECTIONS */
+.sec{scroll-margin-top:var(--nh)}
+.wrap{max-width:920px;margin:0 auto;padding:5rem 2rem}
+.wrap-lg{max-width:1080px;margin:0 auto;padding:5rem 2rem}
+.lbl{font-family:-apple-system,sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--g600);margin-bottom:1rem;font-weight:500}
+h1{font-size:clamp(2rem,5.5vw,3.8rem);font-weight:400;line-height:1.15;color:var(--g900);margin-bottom:1.5rem}
+h2{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:400;color:var(--g900);margin-bottom:1.25rem;line-height:1.25}
+h3{font-family:-apple-system,sans-serif;font-size:1.05rem;font-weight:600;color:var(--g800);margin-bottom:.75rem}
+h4{font-family:-apple-system,sans-serif;font-size:.9rem;font-weight:600;color:var(--g800);margin-bottom:.4rem}
+p{margin-bottom:1.25rem;color:var(--s800)}
+p:last-child{margin-bottom:0}
+hr.div{border:none;height:1px;background:var(--s100);margin:2.5rem 0}
+em{font-style:italic;color:var(--g700)}
+
+/* BTNS */
+.btn{display:inline-block;font-family:-apple-system,sans-serif;font-size:15px;text-decoration:none;border-radius:30px;cursor:pointer;border:none;transition:background .2s;font-weight:500}
+.bg{background:var(--g800);color:#fff;padding:14px 34px}
+.bg:hover{background:var(--g600)}
+.bo{border:1.5px solid var(--g800);color:var(--g800);padding:13px 30px;background:transparent}
+.bo:hover{background:var(--g50)}
+
+/* HERO */
+.hero-bg{background:linear-gradient(150deg,var(--g50) 0%,var(--t50) 50%,#fff 100%)}
+.hero-tag{display:inline-block;font-family:-apple-system,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--g600);background:rgba(59,109,17,.12);padding:6px 16px;border-radius:20px;margin-bottom:2rem}
+.hero-sub{font-family:-apple-system,sans-serif;font-size:1.1rem;color:var(--s600);max-width:600px;margin-bottom:2.5rem;line-height:1.65}
+.hbtns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3.5rem}
+.pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:.875rem}
+.pil{background:#fff;border:1px solid var(--s100);border-radius:14px;padding:1.25rem 1rem;text-align:center}
+.pi{font-size:22px;margin-bottom:.5rem}
+.pt{font-family:-apple-system,sans-serif;font-size:13px;font-weight:600;color:var(--g800);margin-bottom:.3rem}
+.pp{font-family:-apple-system,sans-serif;font-size:11px;color:var(--s600);line-height:1.45}
+
+/* STRIP */
+.strip{background:var(--g800)}
+.si{max-width:920px;margin:0 auto;padding:3rem 2rem;display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;text-align:center}
+.sv{font-size:clamp(1.4rem,2.5vw,2.2rem);font-weight:300;color:var(--g100);font-family:Georgia,serif}
+.sl{font-family:-apple-system,sans-serif;font-size:11px;color:var(--t200);margin-top:4px;line-height:1.4}
+.strip-note{max-width:920px;margin:0 auto;padding:.75rem 2rem 1.5rem;text-align:center}
+.strip-note p{font-family:-apple-system,sans-serif;font-size:11px;color:rgba(255,255,255,.45);margin:0}
+
+/* MILESTONES */
+.msl{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.msr{display:flex;gap:1rem;align-items:flex-start}
+.msd{width:12px;height:12px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.done{background:var(--g200)}
+.now{background:var(--g600)}
+.fut{background:var(--s50);border:2px solid var(--s100)}
+.msb{font-family:-apple-system,sans-serif;font-size:14px;color:var(--s800)}
+.mst{font-size:11px;color:var(--s200);display:block;margin-top:2px}
+
+/* PROBLEM */
+.bg-gray{background:var(--s50)}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin:2.5rem 0}
+.sc{background:#fff;border-radius:14px;padding:1.5rem;border-left:4px solid var(--c600)}
+.sv2{font-size:1.9rem;font-weight:300;color:var(--c600);font-family:Georgia,serif}
+.sd{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s600);margin-top:6px;line-height:1.5}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:2rem}
+.two h3{color:var(--c800)}
+.callout{background:#fff;border:1px solid var(--s100);border-radius:14px;padding:2rem;margin-top:2.5rem}
+.callout h3{margin-bottom:1.25rem}
+.clist{font-family:-apple-system,sans-serif;font-size:14px;color:var(--s800);display:flex;flex-direction:column;gap:.6rem}
+.clist li{list-style:none;padding-left:1.25rem;position:relative;line-height:1.55}
+.clist li::before{content:"—";position:absolute;left:0;color:var(--g600)}
+.clist .src{font-size:11px;color:var(--s200);display:block;margin-top:8px}
+
+/* VISION */
+.bq{border-left:3px solid var(--g600);padding:1.25rem 1.75rem;margin:2rem 0;background:var(--g50);border-radius:0 10px 10px 0}
+.bq p{color:var(--g800);font-size:1.15rem;font-style:italic;margin:0}
+.bz{background:var(--t50);border-radius:14px;padding:2rem;margin:2rem 0}
+.bz-list{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.25rem}
+.bz-item{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s800);padding:.6rem .875rem;background:#fff;border-radius:8px;border:1px solid rgba(15,110,86,.15)}
+.tl{display:flex;flex-direction:column;gap:1.25rem;margin:2rem 0}
+.tr{display:flex;gap:1.25rem}
+.tt{font-family:-apple-system,sans-serif;font-size:13px;color:var(--g600);font-weight:600;min-width:65px;padding-top:2px}
+.td{font-family:-apple-system,sans-serif;font-size:14px;color:var(--s800);line-height:1.55}
+.vis-box{background:var(--g50);border-radius:14px;padding:2rem;margin:2rem 0}
+
+/* MODEL */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2.5rem}
+.tab{font-family:-apple-system,sans-serif;font-size:13px;padding:9px 20px;border-radius:22px;border:1px solid var(--s100);background:#fff;cursor:pointer;color:var(--s600);white-space:nowrap}
+.tab.a{background:var(--g800);color:#fff;border-color:var(--g800)}
+.pnl{display:none}
+.pnl.a{display:block}
+.c3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.c3i{background:var(--g50);border-radius:12px;padding:1.25rem}
+.c3i p{font-family:-apple-system,sans-serif;font-size:12px;color:var(--s600);line-height:1.5;margin:0}
+.c6{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.c6i{background:var(--g50);border-radius:12px;padding:1.25rem}
+.c6i p{font-family:-apple-system,sans-serif;font-size:12px;color:var(--s600);line-height:1.5;margin:0}
+.lfc{display:flex;align-items:stretch;gap:0;margin:2rem 0;overflow-x:auto;padding-bottom:.5rem}
+.lfs{background:var(--g50);border-radius:10px;padding:1rem 1.1rem;text-align:center;min-width:130px;flex:1}
+.lfs h4{font-family:-apple-system,sans-serif;font-size:12px;font-weight:600;color:var(--g800)}
+.lfs p{font-family:-apple-system,sans-serif;font-size:11px;color:var(--s600);margin-top:4px;line-height:1.4;margin-bottom:0}
+.lfa{color:var(--g100);font-size:18px;padding:0 4px;flex-shrink:0;display:flex;align-items:center}
+.lft{overflow-x:auto;margin:2rem 0;border-radius:12px;border:1px solid var(--s100)}
+.lft table{width:100%;border-collapse:collapse;min-width:500px}
+.lft th{font-family:-apple-system,sans-serif;font-size:12px;font-weight:600;color:var(--g800);padding:.875rem 1rem;text-align:left;background:var(--g50);border-bottom:1px solid var(--s100)}
+.lft td{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s800);padding:.875rem 1rem;border-bottom:1px solid var(--s50);vertical-align:top}
+.lft tr:last-child td{border-bottom:none}
+.gov-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin:2rem 0}
+.gg{background:#fff;border:1px solid var(--s100);border-radius:12px;padding:1.5rem}
+.gg h4{color:var(--g800)}
+.gg p{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s600);line-height:1.55;margin:0}
+.faq-wrap{margin-top:3rem}
+.faq-item{border-top:1px solid var(--s100)}
+.faq-q{font-family:-apple-system,sans-serif;font-size:14px;font-weight:600;padding:1rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--g800);gap:1rem}
+.faq-t{font-size:18px;flex-shrink:0;color:var(--g600)}
+.faq-a{font-family:-apple-system,sans-serif;font-size:14px;color:var(--s800);padding-bottom:1rem;line-height:1.6;display:none}
+.faq-a.o{display:block}
+
+/* PERSONAS */
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin:2.5rem 0}
+.pc{border:1px solid var(--s100);border-radius:14px;padding:1.75rem;background:#fff}
+.pav{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:-apple-system,sans-serif;font-size:15px;font-weight:600;margin-bottom:1rem;flex-shrink:0}
+.pc h3{font-family:-apple-system,sans-serif;font-size:16px;font-weight:600;margin-bottom:2px;color:var(--s900)}
+.psub{font-family:-apple-system,sans-serif;font-size:12px;color:var(--s200);margin-bottom:.875rem;display:block}
+.pc p{font-family:-apple-system,sans-serif;font-size:14px;color:var(--s600);line-height:1.6;margin:0}
+.snt{overflow-x:auto;margin:2rem 0;border-radius:12px;border:1px solid var(--s100)}
+.snt table{width:100%;border-collapse:collapse;min-width:400px}
+.snt th{font-family:-apple-system,sans-serif;font-size:12px;font-weight:600;color:var(--g800);padding:.875rem 1rem;background:var(--g50);border-bottom:1px solid var(--s100);text-align:left}
+.snt td{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s800);padding:.875rem 1rem;border-bottom:1px solid var(--s50);vertical-align:top}
+.snt tr:last-child td{border-bottom:none}
+
+/* INVOLVED */
+.bg-green{background:var(--g50)}
+.rgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.875rem;margin:1.75rem 0}
+.rc{background:#fff;border-radius:12px;padding:1.25rem;border:2px solid transparent;cursor:pointer;transition:border-color .2s}
+.rc.s{border-color:var(--g800)}
+.rc p{font-family:-apple-system,sans-serif;font-size:12px;color:var(--s600);line-height:1.45;margin:0}
+.fbox{background:#fff;border-radius:14px;padding:2rem;border:1px solid var(--s100);margin-top:1.5rem}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fg{margin-bottom:1.25rem}
+.fg label{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s600);display:block;margin-bottom:5px}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 14px;border:1px solid var(--s100);border-radius:8px;font-family:-apple-system,sans-serif;font-size:14px;color:var(--s900);background:#fff;outline:none}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--g600)}
+.fg textarea{min-height:90px;resize:vertical}
+.stps{display:flex;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap}
+.stp{display:flex;gap:.875rem;align-items:flex-start;flex:1;min-width:150px}
+.sn{width:30px;height:30px;background:var(--g800);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:-apple-system,sans-serif;font-size:12px;font-weight:600;flex-shrink:0;margin-top:2px}
+.st{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s800);line-height:1.55}
+.ref-box{background:#fff;border:1px solid var(--s100);border-radius:12px;padding:1.5rem;margin-top:2rem}
+
+/* RESOURCES */
+.rgd{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin:2rem 0}
+.rdc{border:1px solid var(--s100);border-radius:14px;padding:1.5rem;background:#fff}
+.rtag{display:inline-block;font-family:-apple-system,sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:var(--g50);color:var(--g600);padding:3px 10px;border-radius:10px;margin-bottom:.75rem}
+.rdc p{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s600);line-height:1.5;margin:0}
+.rl{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+.rl li{font-family:-apple-system,sans-serif;font-size:14px;color:var(--s800);list-style:none;padding-left:1.25rem;position:relative;line-height:1.55}
+.rl li::before{content:"→";position:absolute;left:0;color:var(--g600);font-size:12px}
+
+/* BLOG */
+.bg-gray2{background:var(--s50)}
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0}
+.bc{background:#fff;border-radius:14px;padding:1.75rem;border:1px solid var(--s100)}
+.bd{font-family:-apple-system,sans-serif;font-size:11px;color:var(--s200);margin-bottom:.5rem}
+.bc h3{font-size:1rem;margin-bottom:.5rem;line-height:1.4}
+.bc p{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s600);line-height:1.55;margin:0}
+.ba{display:inline-block;font-family:-apple-system,sans-serif;font-size:12px;color:var(--g600);text-decoration:none;margin-top:.875rem;font-weight:500}
+
+/* ABOUT */
+.vgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin:2rem 0}
+.vi{background:var(--g50);border-radius:12px;padding:1.5rem}
+.vi p{font-family:-apple-system,sans-serif;font-size:13px;color:var(--s600);line-height:1.55;margin:0}
+.team-note{background:var(--t50);border-radius:12px;padding:1.5rem;margin:2rem 0;font-family:-apple-system,sans-serif;font-size:14px;color:var(--s800)}
+.advisor-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.at{font-family:-apple-system,sans-serif;font-size:12px;background:#fff;border:1px solid var(--s100);color:var(--s600);padding:5px 14px;border-radius:20px}
+
+/* FOOTER */
+footer{background:var(--g900);padding:3rem 2rem}
+.fi{max-width:920px;margin:0 auto}
+.fl{display:flex;justify-content:center;gap:1.75rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.fl a{font-family:-apple-system,sans-serif;font-size:13px;color:var(--t100);text-decoration:none}
+.fl a:hover{color:#fff}
+footer p{font-family:-apple-system,sans-serif;font-size:13px;color:var(--t200);text-align:center}
+.fn{font-size:11px;color:rgba(255,255,255,.3);margin-top:.75rem;line-height:1.5}
+
+/* FAB */
+.fab{display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:900;background:var(--g800);color:#fff;padding:14px 26px;border-radius:30px;font-family:-apple-system,sans-serif;font-size:14px;font-weight:500;box-shadow:0 4px 24px rgba(39,80,10,.3);cursor:pointer;border:none}
+.fab:hover{background:var(--g600)}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .pillars{grid-template-columns:repeat(3,1fr)}
+  .si{grid-template-columns:repeat(3,1fr)}
+  .c3,.c6,.gov-grid,.rgd{grid-template-columns:repeat(2,1fr)}
+  .bgrid{grid-template-columns:repeat(2,1fr)}
+  .rgrid{grid-template-columns:repeat(2,1fr)}
+  .vgrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .nd{display:none}
+  .hbg{display:flex}
+  .wrap,.wrap-lg{padding:3.5rem 1.25rem}
+  .pillars{grid-template-columns:repeat(2,1fr)}
+  .si{grid-template-columns:repeat(2,1fr);padding:2rem 1.25rem}
+  .stat-grid,.two,.pgrid,.c3,.c6,.bgrid,.rgd,.gov-grid{grid-template-columns:1fr}
+  .rgrid{grid-template-columns:1fr 1fr}
+  .fr{grid-template-columns:1fr}
+  .bz-list{grid-template-columns:1fr}
+  .lfa{display:none}
+  .stps{flex-direction:column}
+  .vgrid{grid-template-columns:1fr}
+  h1{font-size:1.9rem}h2{font-size:1.5rem}
+}
+@media(max-width:380px){
+  .pillars,.rgrid,.vgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#" onclick="showPage('home')">Common<span>Ground</span></a>
+  <div class="nd">
+    <a href="#" onclick="showPage('problem')">The Problem</a>
+    <a href="#" onclick="showPage('vision')">Our Vision</a>
+    <a href="#" onclick="showPage('model')">Our Model</a>
+    <a href="#" onclick="showPage('personas')">Who It's For</a>
+    <a href="#" onclick="showPage('resources')">Resources</a>
+    <a href="#" onclick="showPage('blog')">Updates</a>
+    <a href="#" onclick="showPage('about')">About</a>
+    <a href="#" onclick="showPage('involved');closeNav()" class="ncta">I'm Interested</a>
+  </div>
+  <button class="hbg" id="hbg" onclick="toggleNav()"><span></span><span></span><span></span></button>
+</nav>
+<div class="mm" id="mm">
+  <a href="#" onclick="showPage('problem');closeNav()">The Problem</a>
+  <a href="#" onclick="showPage('vision');closeNav()">Our Vision</a>
+  <a href="#" onclick="showPage('model');closeNav()">Our Model</a>
+  <a href="#" onclick="showPage('personas');closeNav()">Who It's For</a>
+  <a href="#" onclick="showPage('resources');closeNav()">Resources</a>
+  <a href="#" onclick="showPage('blog');closeNav()">Updates</a>
+  <a href="#" onclick="showPage('about');closeNav()">About & Contact</a>
+  <a href="#" onclick="showPage('involved');closeNav()" class="mm-cta">→ I'm Interested</a>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: HOME
+═══════════════════════════════════════════ -->
+<div class="page active" id="pg-home">
+
+<section class="hero-bg">
+  <div class="wrap">
+    <div class="hero-tag">Housing Cooperative · Bengaluru · Founding Stage</div>
+    <h1><em>Home is not a house.</em><br>It's the people around you.</h1>
+    <p class="hero-sub sf">We're building a housing cooperative in Bengaluru — where you own your home, share your neighbourhood, and never face life alone.</p>
+    <div class="hbtns">
+      <button class="btn bg" onclick="showPage('involved')">I'm Interested →</button>
+      <button class="btn bo" onclick="showPage('vision')">Learn how it works ↓</button>
+    </div>
+    <div class="pillars">
+      <div class="pil"><div class="pi">🏡</div><div class="pt">Affordable by Design</div><div class="pp">No developer margins. Costs redirected to members.</div></div>
+      <div class="pil"><div class="pi">🤝</div><div class="pt">Community as Infrastructure</div><div class="pp">Shared meals, group insurance, daily connection.</div></div>
+      <div class="pil"><div class="pi">🔄</div><div class="pt">Every Phase of Life</div><div class="pp">Start small, grow, downsize, retire — one community.</div></div>
+      <div class="pil"><div class="pi">🏛️</div><div class="pt">Built Together</div><div class="pp">Resident decisions. Shared resources. People first.</div></div>
+      <div class="pil"><div class="pi">💚</div><div class="pt">Blue Zone Living</div><div class="pp">Designed around the science of long, happy lives.</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="lbl sf">What is this?</div>
+    <h2>A different way to own a home.</h2>
+    <p>Most of us spend years saving for a home, only to end up isolated behind closed doors — paying too much, living too little.</p>
+    <p>A housing cooperative is a community you <em>own together</em> — not a gated complex, not a rental, not a developer's product. It's a place where your neighbours are your tribe, your resources are shared, and your home grows with you through every phase of life.</p>
+    <p>We're in the founding stage. If this resonates, we want to hear from you.</p>
+    <button class="btn bo sf" style="margin-top:.5rem" onclick="showPage('involved')">Tell us you're interested →</button>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="si">
+    <div><div class="sv">30–40%</div><div class="sl">potential savings on housing costs vs open market</div></div>
+    <div><div class="sv">₹15–20L</div><div class="sl">estimated annual saving per household on shared services</div></div>
+    <div><div class="sv">50–150</div><div class="sl">target founding community size</div></div>
+    <div><div class="sv">5</div><div class="sl">life stages your home adapts to — without buying or selling</div></div>
+    <div><div class="sv">0</div><div class="sl">developer profit margins in our model</div></div>
+  </div>
+  <div class="strip-note"><p>Indicative projections based on comparable cooperative models globally. Actual numbers developed with founding members.</p></div>
+</div>
+
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="lbl sf">Where we are</div>
+    <h2>Milestones</h2>
+    <div class="msl">
+      <div class="msr"><div class="msd done"></div><div class="msb sf">Founding concept and vision finalised<span class="mst">Completed</span></div></div>
+      <div class="msr"><div class="msd now"></div><div class="msb sf">Founding interest survey open — now taking expressions of interest<span class="mst">Open now</span></div></div>
+      <div class="msr"><div class="msd fut"></div><div class="msb sf">First community conversation (online) — share vision, hear questions<span class="mst">Upcoming</span></div></div>
+      <div class="msr"><div class="msd fut"></div><div class="msb sf">Founding cohort formation begins<span class="mst">Coming soon</span></div></div>
+      <div class="msr"><div class="msd fut"></div><div class="msb sf">Site selection and feasibility study<span class="mst">TBD with founding cohort</span></div></div>
+      <div class="msr"><div class="msd fut"></div><div class="msb sf">Legal structure formation<span class="mst">TBD with founding cohort</span></div></div>
+    </div>
+    <button class="btn bg sf" style="margin-top:2rem" onclick="showPage('involved')">Join the founding cohort →</button>
+  </div>
+</section>
+
+</div><!-- /home -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: THE PROBLEM
+═══════════════════════════════════════════ -->
+<div class="page" id="pg-problem">
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="lbl sf">The Problem</div>
+    <h1>The way we house ourselves is broken.<br><em>And we've accepted it as normal.</em></h1>
+  </div>
+</section>
+
+<section class="bg-gray">
+  <div class="wrap">
+    <h2>Why housing is broken</h2>
+
+    <h3>Affordability — the treadmill that never stops</h3>
+    <p>In Bengaluru, the average apartment costs 8–12× the average annual household income. Most families spend 40–50% of their take-home pay on rent or EMIs — leaving little for savings, health, education, or simply living well.</p>
+    <p>The problem isn't a shortage of construction. It's that housing has been turned into a financial asset — something to be bought, sold, and speculated on — rather than what it fundamentally is: a place to live.</p>
+
+    <hr class="div">
+    <h3>Isolation — the hidden epidemic</h3>
+    <p>Move into a new apartment complex and count how many neighbours you know by name after one year. For most people, the answer is two or three — if that. Modern housing maximises privacy and minimises connection. Every unit is sealed off. Every family cooks alone, drives alone, worries alone.</p>
+    <p>Research is unambiguous: loneliness is as damaging to health as smoking 15 cigarettes a day. It accelerates cognitive decline, raises blood pressure, and shortens lives. We've designed loneliness into our homes.</p>
+
+    <hr class="div">
+    <h3>Inflexibility — one home for a changing life</h3>
+    <p>A young professional needs a compact, connected studio. A growing family needs bedrooms and outdoor space. An empty nester wants ease and community. A retiree needs accessibility and care proximity. Yet most people buy one home and try to make it work forever — or go through the exhausting, expensive process of selling and buying again at each transition.</p>
+
+    <div class="stat-grid">
+      <div class="sc"><div class="sv2">8–12×</div><div class="sd">average apartment cost relative to annual household income in Bengaluru</div></div>
+      <div class="sc"><div class="sv2">46%</div><div class="sd">of monthly income spent on housing EMIs by average Bengaluru homebuyer</div></div>
+      <div class="sc"><div class="sv2">72%</div><div class="sd">of urban Indians report feeling lonely "often" or "sometimes"</div></div>
+      <div class="sc"><div class="sv2">26%</div><div class="sd">increased mortality risk from social isolation (Holt-Lunstad, 2015)</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="wrap">
+    <h2>The hidden costs of conventional housing</h2>
+    <p>The price of your flat is just the beginning.</p>
+    <div class="two">
+      <div>
+        <h3>Financial costs</h3>
+        <ul class="clist">
+          <li>Developer premium: 20–35% of your purchase price is profit and marketing</li>
+          <li>Home loan interest: over 20 years, you pay roughly double the principal</li>
+          <li>Maintenance fees that keep rising with no accountability</li>
+          <li>Brokerage (1–2%) every time you buy or sell</li>
+          <li>Individual service costs — each negotiated weakly, alone</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Social & environmental costs</h3>
+        <ul class="clist">
+          <li>No built-in community; you must build it yourself, if at all</li>
+          <li>No shared childcare, eldercare, or support systems</li>
+          <li>No fallback when life gets hard</li>
+          <li>Individual appliances and systems, each underutilised</li>
+          <li>No pooled solar, water harvesting, or waste management</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gray">
+  <div class="wrap">
+    <h2>The gap between a house and a home</h2>
+    <p>A house is coordinates on a map. A home is where you belong.</p>
+    <p>People who've lived in genuine communities — co-housing in Denmark, cooperative housing in Uruguay, intentional communities across the world — consistently describe the same thing: a sense of being held. Knowing that if you fall ill, someone will notice. That your children have adults who know their names. That old age doesn't have to mean waiting alone.</p>
+    <p>That's not nostalgia. It's a design choice. Communities like this exist. They function. They outlast their founders. They produce healthier, happier, longer-lived residents. We can build that here.</p>
+
+    <div class="callout">
+      <h3>In numbers</h3>
+      <ul class="clist">
+        <li>India's urban housing shortage: <strong>18.78 million units</strong> (Ministry of Housing, 2023)</li>
+        <li>Bengaluru homebuyers spend an average of <strong>46% of monthly income</strong> on housing EMIs</li>
+        <li><strong>72% of urban Indians</strong> report feeling lonely "often" or "sometimes" (Cigna Loneliness Study)</li>
+        <li>Social isolation increases mortality risk by <strong>26%</strong> (Holt-Lunstad, 2015)</li>
+        <li>Blue Zone communities have <strong>3× the rate of centenarians</strong> compared to national averages</li>
+        <li>Danish co-housing residents report <strong>85%+ satisfaction</strong> with community life, vs ~50% in conventional housing</li>
+        <span class="src">Sources: Ministry of Housing & Urban Affairs; Cigna 360 Well-Being Survey; PLOS Medicine; Blue Zones research (Dan Buettner)</span>
+      </ul>
+    </div>
+    <button class="btn bg sf" style="margin-top:2rem" onclick="showPage('vision')">See our vision →</button>
+  </div>
+</section>
+</div><!-- /problem -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: OUR VISION
+═══════════════════════════════════════════ -->
+<div class="page" id="pg-vision">
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="lbl sf">Our Vision</div>
+    <h1><em>Not a building.</em><br>A way of living.</h1>
+  </div>
+</section>
+
+<section class="bg-gray">
+  <div class="wrap">
+    <h2>Community over commodity.</h2>
+    <div class="bq"><p>"Housing is not a product to be consumed. It is a commons to be built together."</p></div>
+    <p>In a cooperative, there are no developers extracting profit. No landlords raising rent at will. No speculative flipping. Instead, members pool resources, make decisions together, and collectively own something that serves all of them — not a distant shareholder.</p>
+    <p>This isn't idealism. It's a tested, proven model. Housing cooperatives house over <strong>1.2 billion people worldwide</strong> across Europe, Latin America, North America and beyond. The Danish co-housing movement has been thriving for over 50 years. Uruguay's FUCVAM cooperative has built over 25,000 homes for working families.</p>
+    <p>We're not inventing something new. We're bringing something time-tested to Bengaluru.</p>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="wrap">
+    <h2>The Blue Zones connection.</h2>
+    <div class="bz">
+      <h3>Where people live longest — and why</h3>
+      <p class="sf" style="font-size:14px">In the late 2000s, researcher Dan Buettner identified five regions where people routinely live past 100 in good health — Okinawa, Sardinia, Nicoya, Ikaria, and Loma Linda. The longest-lived people in the world don't have exceptional genes or secret diets. They share specific lifestyle patterns — and the most powerful is <strong>belonging</strong>.</p>
+      <div class="bz-list">
+        <div class="bz-item">🌐 Strong social networks — people who check in on each other daily</div>
+        <div class="bz-item">🎯 Shared purpose — contributing to something beyond oneself</div>
+        <div class="bz-item">🚶 Natural movement — activity built into daily life, not scheduled</div>
+        <div class="bz-item">🧘 Stress reduction rituals — built into community rhythms</div>
+        <div class="bz-item">🍽️ Communal eating — meals as social events, not solitary refuelling</div>
+        <div class="bz-item">🏘️ Regular community gathering — shared practices and belonging</div>
+      </div>
+      <p class="sf" style="font-size:14px;margin-top:1.25rem;margin-bottom:0">Our cooperative is designed around every one of these principles — not as a wellness programme layered on top, but as the architecture of how we live.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gray">
+  <div class="wrap">
+    <h2>A day in the life.</h2>
+    <p><em>Picture a Tuesday.</em></p>
+    <div class="tl">
+      <div class="tr"><div class="tt">7:00 am</div><div class="td">You wake up in your apartment — fully yours, designed for your current life stage. Your 7-year-old runs down to the common garden where three other children from the community are already playing, supervised by a neighbour who enjoys the morning air.</div></div>
+      <div class="tr"><div class="tt">7:30 am</div><div class="td">You join the breakfast queue at the community kitchen — not a canteen, but a warm, well-designed space where a rotating team of residents and a part-time cook prepare fresh food daily. You eat with a colleague who lives two floors away.</div></div>
+      <div class="tr"><div class="tt">9:00 am</div><div class="td">You work from home. Your parents, who moved into the retirement wing last year, join their morning walk on the community trail with four others their age. The social connection they'd lost when your father retired has been rebuilt, slowly, through these small daily rituals.</div></div>
+      <div class="tr"><div class="tt">6:00 pm</div><div class="td">There's a community assembly tonight — once a month, residents gather to discuss the solar maintenance budget, whether to start a tool library, a proposal for community composting. Your voice counts. You vote.</div></div>
+      <div class="tr"><div class="tt">9:00 pm</div><div class="td">You don't scroll alone through news of a world that feels out of control. You feel, quietly, that you are part of something. That you belong somewhere. That if something went wrong, people would know.</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="wrap">
+    <h2>The long-term vision.</h2>
+    <p>We are starting with one community in Bengaluru. But the model is replicable.</p>
+    <p>Our long-term vision is a network of cooperative communities — across the city, and eventually across India — sharing a legal framework, a governance playbook, and a culture of mutual aid. Each community self-governing. Each connected to the larger whole.</p>
+    <div class="vis-box">
+      <h3>We imagine a future where —</h3>
+      <ul class="clist sf" style="font-size:14px">
+        <li>A young family in Whitefield and a retiree in Jayanagar both live in communities that hold them</li>
+        <li>Cooperative housing is a mainstream, aspirational choice — not an alternative lifestyle</li>
+        <li>The cooperative model exerts competitive pressure on conventional developers, pushing quality up and prices down for everyone</li>
+        <li>India's deep cooperative tradition is modernised and brought forward for the 21st century</li>
+      </ul>
+    </div>
+    <button class="btn bg sf" style="margin-top:1rem" onclick="showPage('model')">See how the model works →</button>
+  </div>
+</section>
+</div><!-- /vision -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: OUR MODEL
+═══════════════════════════════════════════ -->
+<div class="page" id="pg-model">
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="lbl sf">Our Model</div>
+    <h1>How it actually works —<br><em>ownership, community, and decisions.</em></h1>
+
+    <div class="tabs sf">
+      <button class="tab a" onclick="showTab(this,'membership')">Membership & Ownership</button>
+      <button class="tab" onclick="showTab(this,'lifecycle')">Lifecycle Housing</button>
+      <button class="tab" onclick="showTab(this,'common')">Life in Common</button>
+      <button class="tab" onclick="showTab(this,'governance')">Governance</button>
+    </div>
+
+    <!-- MEMBERSHIP -->
+    <div class="pnl a" id="pt-membership">
+      <h3>What is cooperative tenure?</h3>
+      <p>In a conventional purchase, you buy a flat. In our cooperative, you become a <strong>member</strong>. You pay a membership share — a capital contribution that gives you the right to occupy your home. This is not rent. But it is also not speculative ownership.</p>
+      <div class="c3">
+        <div class="c3i"><h4>What you own</h4><p>Your membership share, the right to your home for life, a proportional stake in collective assets, and a vote in every major decision.</p></div>
+        <div class="c3i"><h4>What you don't own</h4><p>The land (held collectively), the ability to sell at market price, or to sublet freely. This is by design — it's what keeps housing affordable.</p></div>
+        <div class="c3i"><h4>Why this structure?</h4><p>The moment homes become speculative assets, affordability is destroyed. Collective land ownership ensures the community remains affordable for the next generation too.</p></div>
+      </div>
+      <hr class="div">
+      <h3>How does the money work?</h3>
+      <p class="sf" style="font-size:14px"><em>Indicative model — to be finalised with founding members and legal/financial advisors.</em></p>
+      <div class="c3">
+        <div class="c3i"><h4>Entry</h4><p>Members contribute a capital share reflecting home size and community investment — significantly below equivalent market cost.</p></div>
+        <div class="c3i"><h4>Monthly</h4><p>A carrying cost covering maintenance, shared services, and sinking fund — well below market rent or EMI equivalents.</p></div>
+        <div class="c3i"><h4>Exit</h4><p>Your capital share is returned, adjusted for inflation — not market appreciation. No windfall, but no loss either.</p></div>
+      </div>
+    </div>
+
+    <!-- LIFECYCLE -->
+    <div class="pnl" id="pt-lifecycle">
+      <h3>One community, your whole life.</h3>
+      <p>The average Indian family moves home 3–4 times over a lifetime. Each move costs lakhs in fees, months of stress, and the loss of community you'd built. In our model, <strong>you move within the community</strong>.</p>
+      <div class="lfc">
+        <div class="lfs"><h4>Studio / 1BHK</h4><p>Young professional or couple starting out</p></div>
+        <div class="lfa">→</div>
+        <div class="lfs"><h4>2–3 BHK</h4><p>Growing family, children need space</p></div>
+        <div class="lfa">→</div>
+        <div class="lfs"><h4>Comfortable 2BHK</h4><p>Empty nester, simplicity</p></div>
+        <div class="lfa">→</div>
+        <div class="lfs"><h4>Smaller unit + care</h4><p>Active retiree, support nearby</p></div>
+        <div class="lfa">→</div>
+        <div class="lfs"><h4>Assisted living wing</h4><p>Full care, dignity, still home</p></div>
+      </div>
+      <div class="lft">
+        <table>
+          <tr><th>Life Stage</th><th>Housing Type</th><th>What Changes</th></tr>
+          <tr><td>Young professional / couple</td><td>Compact 1BHK or studio</td><td>Size, cost</td></tr>
+          <tr><td>Growing family</td><td>2–3BHK with outdoor access</td><td>Space, layout</td></tr>
+          <tr><td>Empty nester</td><td>Comfortable 2BHK, less maintenance</td><td>Simplicity, freedom</td></tr>
+          <tr><td>Active retiree</td><td>Smaller unit, social proximity</td><td>Accessibility, ease</td></tr>
+          <tr><td>Elderly / care needs</td><td>Assisted living wing</td><td>Support, care integration</td></tr>
+        </table>
+      </div>
+      <p>The cooperative maintains a <strong>housing mobility register</strong> — a transparent, fair system for matching members to available units as life changes. You never leave your community, your relationships, your familiar morning routines.</p>
+    </div>
+
+    <!-- COMMON -->
+    <div class="pnl" id="pt-common">
+      <h3>What "shared" actually looks like.</h3>
+      <p><em>This isn't about giving up your privacy. It's about gaining abundance.</em></p>
+      <div class="c6">
+        <div class="c6i"><h4>Community kitchen</h4><p>Optional daily meals at ₹50–80 per meal. Saves 2–3 hours daily. A rotating team of residents cooks alongside paid staff. You can always cook in your own kitchen — but you don't have to.</p></div>
+        <div class="c6i"><h4>Group health insurance</h4><p>100+ adults have enormous negotiating power. Our group policy covers all members, managed by a community health committee that holds the insurer accountable. No more claim denials going uncontested.</p></div>
+        <div class="c6i"><h4>Community solar</h4><p>Rooftop solar serving the entire community reduces per-unit energy costs dramatically. Surplus fed to the grid. Battery storage for resilience during outages.</p></div>
+        <div class="c6i"><h4>Water harvesting</h4><p>Rainwater harvesting, greywater recycling, and bore well management at community scale. Bengaluru's water challenges are far easier to address collectively than household by household.</p></div>
+        <div class="c6i"><h4>Tool library</h4><p>One community drill, one pressure washer, one sewing machine. Expensive, rarely-used equipment owned collectively and borrowed freely. Thousands saved per household annually.</p></div>
+        <div class="c6i"><h4>The safety net</h4><p>An emergency fund for members in crisis. Community labour exchange. Coordinated support during illness or bereavement. In conventional housing, you face these moments alone.</p></div>
+      </div>
+    </div>
+
+    <!-- GOVERNANCE -->
+    <div class="pnl" id="pt-governance">
+      <h3>You run this place.</h3>
+      <p>We are a cooperative, not a company. There are no shareholders to please, no board that overrides residents. Power lives with the members.</p>
+      <div class="gov-grid">
+        <div class="gg"><h4>The General Assembly</h4><p>All members. One vote each. Meets monthly. Sets priorities, approves major budgets, resolves disputes, and amends community agreements.</p></div>
+        <div class="gg"><h4>Working Committees</h4><p>Residents self-organise into committees — maintenance, food, community life, finance, green infrastructure. Each holds operational authority in its domain.</p></div>
+        <div class="gg"><h4>The Stewardship Council</h4><p>A small elected body (5–7 members) handling day-to-day coordination and external matters. Elected annually. Term-limited. Reports to the Assembly.</p></div>
+        <div class="gg"><h4>Conflict Resolution</h4><p>Disputes go first to mediation, facilitated by trained community members. If unresolved, to the Assembly. We avoid litigation by design.</p></div>
+      </div>
+      <div class="c3i" style="margin-top:1rem"><h4>Decision tiers</h4><p class="sf" style="font-size:13px;line-height:1.6;margin:0">Routine: Committee authority &nbsp;·&nbsp; Significant operational: Council authority &nbsp;·&nbsp; Major (budget, policy, membership): General Assembly &nbsp;·&nbsp; Constitutional changes: Supermajority of all members</p></div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-wrap">
+      <hr class="div">
+      <div class="lbl sf">Frequently asked</div>
+      <div class="faq-item"><div class="faq-q sf" onclick="faq(this)">Is this legal in India?<span class="faq-t">+</span></div><div class="faq-a">Yes. Housing cooperatives are a recognised legal structure under the Cooperative Societies Acts of various states, including Karnataka. We are working with legal advisors to determine the optimal structure — Cooperative Society, Group Housing Cooperative, or a hybrid.</div></div>
+      <div class="faq-item"><div class="faq-q sf" onclick="faq(this)">Is this like a housing society or RWA?<span class="faq-t">+</span></div><div class="faq-a">Not quite. In a conventional housing society, you own your flat individually and join the society. In a cooperative, the cooperative owns the property collectively and you own a membership share. This is what enables lifecycle flexibility, anti-speculation pricing, and genuine democratic governance.</div></div>
+      <div class="faq-item"><div class="faq-q sf" onclick="faq(this)">Do I lose money if housing prices go up?<span class="faq-t">+</span></div><div class="faq-a">Your capital contribution appreciates with inflation, not market speculation. You don't capture market upside — but you also don't face market downside, and you save significantly every year through shared costs. The model is optimised for quality of life, not investment return.</div></div>
+      <div class="faq-item"><div class="faq-q sf" onclick="faq(this)">What if I want to leave?<span class="faq-t">+</span></div><div class="faq-a">You give notice per the community agreement. Your capital share is returned. Your unit is offered to the next member on the housing register. There is no penalty for leaving — though we hope you'll stay.</div></div>
+      <div class="faq-item"><div class="faq-q sf" onclick="faq(this)">Can I customise my home?<span class="faq-t">+</span></div><div class="faq-a">Within agreed parameters, yes. Structural changes require community approval. Interior decisions are yours.</div></div>
+      <div class="faq-item"><div class="faq-q sf" onclick="faq(this)">What about inheritance?<span class="faq-t">+</span></div><div class="faq-a">Membership shares can be transferred to family members who wish to join the community, subject to the community membership process. Details will be developed during the founding phase.</div></div>
+      <div class="faq-item"><div class="faq-q sf" onclick="faq(this)">I rent currently — can I join?<span class="faq-t">+</span></div><div class="faq-a">Yes. The entry model includes options for members who cannot make a full capital contribution upfront. Rent-to-membership pathways are part of the design.</div></div>
+    </div>
+  </div>
+</section>
+</div><!-- /model -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: WHO IT'S FOR
+═══════════════════════════════════════════ -->
+<div class="page" id="pg-personas">
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="lbl sf">Who It's For</div>
+    <h1>Wherever you are in life,<br><em>there's a place for you here.</em></h1>
+
+    <div class="pgrid">
+      <div class="pc">
+        <div class="pav" style="background:var(--g50);color:var(--g800)">AM</div>
+        <h3>Arjun & Meghna, 29 & 27</h3><span class="psub">Young couple · First home · HSR Layout</span>
+        <p>Paying ₹28,000 a month in rent for a 1BHK. They like their apartment. They don't know a single neighbour. They've started thinking about buying, but a 2BHK near their offices costs ₹1.2 crore — and a 20-year loan means paying nearly ₹2.5 crore in total.</p>
+        <p style="margin-top:.875rem">In CommonGround, they pay a membership contribution comparable to a down payment — but they're not locked into decades of debt in a tower block. Their monthly carrying cost is lower than their current rent. When their family grows, they don't sell and buy again. They move to a larger unit, within the same community, with the same neighbours.</p>
+      </div>
+      <div class="pc">
+        <div class="pav" style="background:var(--t50);color:var(--t600)">PR</div>
+        <h3>Priya, 38</h3><span class="psub">Single professional · Senior manager</span>
+        <p>Well-paid, living alone. Her apartment is comfortable. Her evenings are quiet — a little too quiet. She's thought about buying but feels uncomfortable making a 20-year financial commitment alone. She has friends but no real community.</p>
+        <p style="margin-top:.875rem">In CommonGround, Priya has a home that's genuinely hers, financial terms she can manage as a single person, and daily life enriched by people she actually knows. The community kitchen means she doesn't eat alone every night unless she wants to. The safety net means she's not one health crisis away from managing everything herself.</p>
+      </div>
+      <div class="pc">
+        <div class="pav" style="background:var(--a50);color:var(--a800)">VA</div>
+        <h3>Vikram & Anita, 44 & 42</h3><span class="psub">Family with two children</span>
+        <p>They bought their 3BHK eight years ago. It was right then. Now they feel the limits: no outdoor space, an anonymous neighbours, and two kids who spend weekends on screens because there's nowhere to go.</p>
+        <p style="margin-top:.875rem">They want their children to grow up with the kind of freedom they themselves had — knowing the neighbourhood, having trusted adults beyond their parents. In CommonGround, that world comes back. The common garden, the neighbours who know their children's names. And Vikram and Anita are part of a community that genuinely functions.</p>
+      </div>
+      <div class="pc">
+        <div class="pav" style="background:var(--c50);color:var(--c800)">SK</div>
+        <h3>Suresh & Kamala, 64 & 61</h3><span class="psub">Empty nesters · Jayanagar</span>
+        <p>Their children are in Pune and Singapore. The family home feels large now. The maintenance is tiring. The silence, sometimes, is heavy. They're healthy and active. They want to downsize — but not to a flat where they'll know no one.</p>
+        <p style="margin-top:.875rem">In CommonGround, they move into a well-designed smaller unit. They walk with friends in the morning. They participate in the Assembly. They cook in the community kitchen once a week. When health needs change, the pathway to assisted living is within the same community — no uprooting, no strangers.</p>
+      </div>
+    </div>
+
+    <hr class="div">
+    <h2>The safety net across every phase of life.</h2>
+    <div class="snt">
+      <table>
+        <tr><th>Life Phase</th><th>CommonGround provides</th></tr>
+        <tr><td>Young adult</td><td>Affordable entry, social connection, peer network</td></tr>
+        <tr><td>Family with children</td><td>Childcare support, outdoor space, trusted community adults</td></tr>
+        <tr><td>Mid-career</td><td>Shared services reducing daily burden, financial resilience</td></tr>
+        <tr><td>Empty nester</td><td>Downsizing without loss of community or roots</td></tr>
+        <tr><td>Active retiree</td><td>Purpose, social engagement, maintenance-free living</td></tr>
+        <tr><td>Elderly / care needs</td><td>On-site support, familiar surroundings, community care</td></tr>
+      </table>
+    </div>
+    <button class="btn bg sf" style="margin-top:2rem" onclick="showPage('involved')">Tell us where you are in life →</button>
+  </div>
+</section>
+</div><!-- /personas -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: GET INVOLVED
+═══════════════════════════════════════════ -->
+<div class="page" id="pg-involved">
+<section class="bg-green">
+  <div class="wrap">
+    <div class="lbl sf">Get Involved</div>
+    <h1>The founding generation<br><em>shapes everything. Be part of it.</em></h1>
+    <p>We're not selling flats. We're finding founding members. The founding cohort will shape everything: the location, the design, the governance, the shared services, the culture. This is a rare opportunity to be a genuine co-creator, not a consumer.</p>
+
+    <h3 style="margin-top:2rem">How would you like to be involved?</h3>
+    <div class="rgrid sf">
+      <div class="rc s" onclick="selR(this)"><h4>Founding Member</h4><p>Seriously interested in living here. Want to be in the room where decisions are made and have first consideration when capital commitments are made.</p></div>
+      <div class="rc" onclick="selR(this)"><h4>Interested Observer</h4><p>Intrigued but not ready to commit. Want to stay informed, attend open events, and see how this develops. No obligation.</p></div>
+      <div class="rc" onclick="selR(this)"><h4>Advisor / Expert</h4><p>Have relevant expertise in law, finance, architecture, cooperative management, sustainability — and want to contribute it.</p></div>
+      <div class="rc" onclick="selR(this)"><h4>Collaborator / Partner</h4><p>Represent an organisation or are building something compatible with this. An employer, NGO, institution, or community builder.</p></div>
+    </div>
+
+    <div class="fbox">
+      <h3 style="margin-bottom:1.5rem">Expression of Interest</h3>
+      <div class="fr">
+        <div class="fg"><label>First name *</label><input type="text" placeholder="Arjun"></div>
+        <div class="fg"><label>Last name *</label><input type="text" placeholder="Sharma"></div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label>Email *</label><input type="email" placeholder="arjun@email.com"></div>
+        <div class="fg"><label>Phone (optional)</label><input type="tel" placeholder="+91 98765 43210"></div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label>Current city / neighbourhood</label><input type="text" placeholder="HSR Layout, Bengaluru"></div>
+        <div class="fg"><label>Life stage</label>
+          <select><option>Select...</option><option>Young professional / single</option><option>Couple, no children yet</option><option>Family with young children</option><option>Family with older children</option><option>Empty nester</option><option>Retiree / senior</option></select>
+        </div>
+      </div>
+      <div class="fg"><label>What draws you to this idea?</label><textarea placeholder="Share as much or as little as you like — no right answer here."></textarea></div>
+      <div class="fg"><label>How did you hear about us?</label><input type="text" placeholder="Friend, social media, article..."></div>
+      <button class="btn bg sf" style="width:100%;padding:15px;border-radius:10px;font-size:15px">Send my expression of interest →</button>
+      <p class="sf" style="font-size:12px;color:var(--s200);text-align:center;margin-top:1rem">No commitment required at this stage. We read and respond to every submission personally. We'll never spam you or sell your data.</p>
+    </div>
+
+    <div class="stps">
+      <div class="stp"><div class="sn">1</div><div class="st sf">You receive a welcome email with our founding document and upcoming events.</div></div>
+      <div class="stp"><div class="sn">2</div><div class="st sf">You're invited to our first community conversation — an online session to share the vision and hear your questions.</div></div>
+      <div class="stp"><div class="sn">3</div><div class="st sf">You're added to founding circle communications — honest, direct updates on progress, challenges, and decisions.</div></div>
+      <div class="stp"><div class="sn">4</div><div class="st sf">If you want to go deeper, you'll be invited into working groups on finance, design, governance, and community.</div></div>
+      <div class="stp"><div class="sn">5</div><div class="st sf">As the founding cohort forms, we move together toward a more formal commitment process.</div></div>
+    </div>
+
+    <div class="ref-box">
+      <h3>Know someone who'd be interested?</h3>
+      <p class="sf" style="font-size:14px;margin-top:.5rem;margin-bottom:1rem">The best cooperatives are built through trust networks — people who bring in people they know. If you refer someone who becomes a founding member, you'll be acknowledged in the cooperative's founding records.</p>
+      <button class="btn bo sf">Share this project →</button>
+    </div>
+  </div>
+</section>
+</div><!-- /involved -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: RESOURCES
+═══════════════════════════════════════════ -->
+<div class="page" id="pg-resources">
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="lbl sf">Resources & Learn More</div>
+    <h1>This idea has roots.<br><em>Here's where to find them.</em></h1>
+
+    <h2 style="margin-top:1rem">Global examples</h2>
+    <div class="rgd">
+      <div class="rdc"><div class="rtag">Spain</div><h4>La Borda, Barcelona</h4><p>Built in 2018 on public land leased for 75 years. Combines private dwellings with extensive common spaces — kitchen, laundry, workshop. Governed entirely by residents. A landmark project for European cooperative housing.</p></div>
+      <div class="rdc"><div class="rtag">Uruguay</div><h4>FUCVAM</h4><p>The world's most successful model of worker-built cooperative housing. Since 1970, FUCVAM affiliates have built over 25,000 homes using mutual aid — members contribute their own labour in exchange for lower costs. Replicated across Latin America.</p></div>
+      <div class="rdc"><div class="rtag">Denmark</div><h4>Danish Bofællesskaber</h4><p>Over 700 co-housing communities, typically 15–35 private dwellings around shared spaces. Residents cook together several times a week. Studies consistently show higher wellbeing and lower loneliness than conventional housing.</p></div>
+      <div class="rdc"><div class="rtag">India</div><h4>Auroville, Tamil Nadu</h4><p>Founded 1968. Over 3,500 residents of 60 nationalities. Demonstrates that large-scale community living is possible in the Indian context — with remarkable social and environmental outcomes.</p></div>
+      <div class="rdc"><div class="rtag">UK</div><h4>LILAC, Leeds</h4><p>Low Impact Living Affordable Community — a Mutual Home Ownership Society where members pay a percentage of income rather than a fixed mortgage, making entry genuinely accessible regardless of savings.</p></div>
+      <div class="rdc"><div class="rtag">India · Legal</div><h4>Cooperative Housing in India</h4><p>Housing cooperatives are recognised under the Cooperative Societies Acts of various states, including Karnataka. NCHI (National Cooperative Housing Federation of India) provides national regulatory context.</p></div>
+    </div>
+
+    <hr class="div">
+    <h2>Reading & research</h2>
+    <div class="two" style="margin-top:1.5rem">
+      <div>
+        <h3>Blue Zones</h3>
+        <ul class="rl">
+          <li><em>The Blue Zones</em> — Dan Buettner (National Geographic, 2008)</li>
+          <li><em>The Blue Zones Solution</em> — on food, community, and longevity by design</li>
+          <li>bluezones.com — official research and resources</li>
+        </ul>
+        <h3 style="margin-top:1.5rem">Cooperative Housing</h3>
+        <ul class="rl">
+          <li>ICA Housing — International Cooperative Alliance resources</li>
+          <li><em>Creating Cohousing</em> — McCamant & Durrett (foundational text on design)</li>
+          <li>NCHI — National Cooperative Housing Federation of India</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Loneliness & Community</h3>
+        <ul class="rl">
+          <li>Holt-Lunstad et al. (2015) — "Loneliness and Social Isolation as Risk Factors for Mortality"</li>
+          <li>Cigna 360 Well-Being Survey — loneliness data</li>
+          <li>Robert Putnam, <em>Bowling Alone</em> — the decline of social capital</li>
+        </ul>
+        <h3 style="margin-top:1.5rem">Affordability & Housing</h3>
+        <ul class="rl">
+          <li>Ministry of Housing & Urban Affairs — urban housing shortage data</li>
+          <li>RBI / NHB reports on housing affordability in Indian metros</li>
+          <li>ICLEI South Asia — community sustainability in Indian urban contexts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /resources -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: BLOG / UPDATES
+═══════════════════════════════════════════ -->
+<div class="page" id="pg-blog">
+<section class="bg-gray2">
+  <div class="wrap">
+    <div class="lbl sf">Updates</div>
+    <h1>Building in the open.<br><em>Read along.</em></h1>
+    <div class="bgrid">
+      <div class="bc">
+        <div class="bd">Founding Update · [Date]</div>
+        <h3>Why we're doing this — and why now</h3>
+        <p>I've been thinking about this for years. The trigger wasn't a policy paper or a housing conference. It was a Tuesday evening in my apartment building, where I've lived for four years, when I realised I didn't know the name of the family directly across the corridor.</p>
+        <a href="#" class="ba">Read more →</a>
+      </div>
+      <div class="bc">
+        <div class="bd">Concept Article · [Date]</div>
+        <h3>What Blue Zones can teach us about how we house ourselves</h3>
+        <p>The five regions where people routinely live past 100 have almost nothing to do with medicine and almost everything to do with the architecture of daily life — how people eat together, how they move, who they belong to.</p>
+        <a href="#" class="ba">Read more →</a>
+      </div>
+      <div class="bc">
+        <div class="bd">Explainer · [Date]</div>
+        <h3>What is a housing cooperative, really? (And what it isn't)</h3>
+        <p>If you mention cooperative housing at a dinner party in Bengaluru, you'll get blank confusion, vague association with Soviet-era collectives, or quiet enthusiasm from someone who's been wanting this for years. Let's clear up the confusion.</p>
+        <a href="#" class="ba">Read more →</a>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:12px;padding:1.75rem;border:1px solid var(--s100);margin-top:1rem">
+      <h3>Get updates in your inbox</h3>
+      <p class="sf" style="font-size:14px;margin-top:.4rem;margin-bottom:1.25rem">We write infrequently and only when we have something worth saying.</p>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+        <input type="email" placeholder="your@email.com" style="flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--s100);border-radius:8px;font-family:-apple-system,sans-serif;font-size:14px;outline:none">
+        <button class="btn bg sf" style="white-space:nowrap">Subscribe →</button>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /blog -->
+
+<!-- ═══════════════════════════════════════════
+     PAGE: ABOUT
+═══════════════════════════════════════════ -->
+<div class="page" id="pg-about">
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="lbl sf">About & Contact</div>
+    <h1>We're ordinary people who decided<br><em>to do something about this.</em></h1>
+
+    <div class="bq" style="margin-bottom:2rem"><p>"I didn't set out to start a housing cooperative. I set out to find a home — one that was genuinely affordable, that had real community, that would work for my life as it actually is. I couldn't find it. So I started asking whether I could build it."</p></div>
+    <p>CommonGround is being built by people who felt the gap between the housing that's available and the housing we actually need. We're not developers. We're future residents and community builders who believe the way we house ourselves shapes who we become — and that we can do this better, together.</p>
+
+    <hr class="div">
+    <h2>Our guiding values.</h2>
+    <div class="vgrid">
+      <div class="vi"><h4>Honesty over hype</h4><p>We'll tell you what we don't know. We'll share our challenges alongside our progress. This is a founding process, not a sales pitch.</p></div>
+      <div class="vi"><h4>Community over commodity</h4><p>Every design decision is tested against one question: does this serve the people who live here, or does it serve a financial abstraction?</p></div>
+      <div class="vi"><h4>Long-termism</h4><p>We're building something to last generations, not flip in five years. Decisions are made accordingly.</p></div>
+      <div class="vi"><h4>Radical inclusion</h4><p>Class, income level, life stage, family structure — the community should reflect the city it's part of, not just one slice of it.</p></div>
+      <div class="vi"><h4>Democratic accountability</h4><p>No single founder, investor, or committee should hold disproportionate power. We design governance that distributes authority.</p></div>
+      <div class="vi"><h4>Transparency</h4><p>Open books, open decisions, honest conversations. You deserve to know how every rupee flows and every decision is made.</p></div>
+    </div>
+
+    <hr class="div">
+    <h2>Founding team.</h2>
+    <div class="team-note sf">
+      <strong>Placeholder —</strong> Team profiles will be added as the founding team forms. If you have relevant expertise and want to be part of building this, please reach out below.
+    </div>
+
+    <hr class="div">
+    <h2>Advisors & partners.</h2>
+    <p>We are actively seeking advisors with expertise in:</p>
+    <div class="advisor-tags sf">
+      <span class="at">Cooperative law (Karnataka)</span>
+      <span class="at">Housing finance</span>
+      <span class="at">Cooperative architecture</span>
+      <span class="at">Community organising</span>
+      <span class="at">Sustainable building</span>
+      <span class="at">Community investment models</span>
+      <span class="at">Urban planning</span>
+      <span class="at">Social work & care</span>
+    </div>
+    <p style="margin-top:1.25rem;font-family:-apple-system,sans-serif;font-size:14px">If you have relevant expertise and want to contribute, please get in touch below.</p>
+
+    <hr class="div">
+    <h2>Get in touch.</h2>
+    <div class="fbox">
+      <div class="fr">
+        <div class="fg"><label>Your name</label><input type="text" placeholder="Name"></div>
+        <div class="fg"><label>Your email</label><input type="email" placeholder="email@example.com"></div>
+      </div>
+      <div class="fg"><label>How can you help / what would you like to know?</label><textarea placeholder="Questions, ideas, introductions, expertise — all welcome. We read every message."></textarea></div>
+      <button class="btn bg sf">Send message →</button>
+      <p class="sf" style="font-size:12px;color:var(--s200);margin-top:1rem">Email: hello@commonground.in (placeholder) &nbsp;·&nbsp; We read every message and will respond personally.</p>
+    </div>
+  </div>
+</section>
+</div><!-- /about -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div class="fl">
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('problem')">The Problem</a>
+      <a href="#" onclick="showPage('vision')">Our Vision</a>
+      <a href="#" onclick="showPage('model')">Our Model</a>
+      <a href="#" onclick="showPage('personas')">Who It's For</a>
+      <a href="#" onclick="showPage('resources')">Resources</a>
+      <a href="#" onclick="showPage('blog')">Updates</a>
+      <a href="#" onclick="showPage('about')">About</a>
+      <a href="#" onclick="showPage('involved')">Get Involved</a>
+    </div>
+    <p>CommonGround — A housing cooperative in formation. Bengaluru, India.</p>
+    <p style="margin-top:.4rem">Building something better, together.</p>
+    <p class="fn">This is a project in its founding stage. Nothing on this site constitutes a financial offer or legal commitment. All projections are indicative and subject to change as the founding process develops.</p>
+  </div>
+</footer>
+
+<!-- FAB -->
+<button class="fab" id="fab" onclick="showPage('involved')">I'm Interested →</button>
+
+<script>
+var cur='home';
+function showPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('pg-'+p).classList.add('active');
+  cur=p;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleNav(){
+  var h=document.getElementById('hbg'),m=document.getElementById('mm');
+  h.classList.toggle('o');m.classList.toggle('o');
+}
+function closeNav(){
+  document.getElementById('hbg').classList.remove('o');
+  document.getElementById('mm').classList.remove('o');
+}
+function showTab(btn,name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('a'));
+  document.querySelectorAll('.pnl').forEach(p=>p.classList.remove('a'));
+  btn.classList.add('a');
+  document.getElementById('pt-'+name).classList.add('a');
+}
+function faq(el){
+  var a=el.nextElementSibling,t=el.querySelector('.faq-t');
+  a.classList.toggle('o');t.textContent=a.classList.contains('o')?'−':'+';
+}
+function selR(el){
+  document.querySelectorAll('.rc').forEach(r=>r.classList.remove('s'));
+  el.classList.add('s');
+}
+window.addEventListener('scroll',function(){
+  document.getElementById('fab').style.display=window.scrollY>300?'block':'none';
+});
+document.addEventListener('click',function(e){
+  var m=document.getElementById('mm');
+  if(m.classList.contains('o')&&!m.contains(e.target)&&!document.getElementById('hbg').contains(e.target))closeNav();
+});
+</script>
+</body>
+</html>
